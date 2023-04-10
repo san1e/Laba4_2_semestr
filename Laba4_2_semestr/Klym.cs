@@ -121,7 +121,7 @@ namespace Laba4_2_semestr
                 }
             }
 
-            foreach (int[] row in arr)
+            foreach (int[] row in arr) 
             {
                 if (row != null)
                 {
