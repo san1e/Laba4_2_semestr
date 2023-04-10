@@ -120,17 +120,14 @@ namespace Laba4_2_semestr
                     arr[i] = null;
                 }
             }
-             
-            CW(arr);
 
-            // Вивід результату
-            //foreach (int[] row in arr)
-            //{
-            //    if (row != null)
-            //    {
-            //        Console.WriteLine(string.Join(", ", row));
-            //    }
-            //}
+            foreach (int[] row in arr)
+            {
+                if (row != null)
+                {
+                    Console.WriteLine(string.Join(", ", row));
+                }
+            }
         }
         static void Task3()
         {
