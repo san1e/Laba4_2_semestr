@@ -10,15 +10,32 @@ namespace Laba4_2_semestr
     {
         static void Task1()
         {
-
+            Console.WriteLine("Enter the array: ");
+            int[] intarray = Array1dFilling();
+            int[] resarray = new int[intarray.Length + TwinCount(intarray)];
+            ResarrayFilling(intarray, resarray);
+            Console.WriteLine("Result array: ");
+            PrintArray(resarray);
         }
         static void Task2()
         {
+            int[][] jaggedArray = JaggedArrayFilling();
+            Console.WriteLine("Jagged array: ");
+            PrintJaggedArray(jaggedArray);
 
+            Console.WriteLine("Result: ");
+            PrintJaggedArray(JaggedArrayRowAdder(jaggedArray));
         }
         static void Task3()
         {
+            int[,] array2d = Array2dFilling();
+            int[][] jaggedArray = JaggedArrayFilling();
 
+            int[,] sum = SumOfMatrices(array2d, jaggedArray);
+            Console.WriteLine("Sum matrix: ");
+            PrintArray2d(sum);
+            Console.WriteLine("Result matrix: ");
+            PrintArray2d(InvertMatrix(sum));
         }
         public void Main()
         {
@@ -43,6 +60,190 @@ namespace Laba4_2_semestr
                         break;
                 }
             } while (choice != 0);
+        }
+        static int[] Array1dFilling()
+        {
+            string[] array = Console.ReadLine().Trim().Split();
+            int[] intarray = new int[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                intarray[i] = int.Parse(array[i]);
+            }
+            return intarray;
+        }
+          static int TwinCount(int[] intarray)
+        {
+            int count = 0;
+            for (int i = 0; i < intarray.Length; i++)
+            {
+                if (intarray[i] % 2 == 0)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+        static void ResarrayFilling(int[] intarray, int[] resarray)
+        {
+            for (int i = 0, j = 0; i < intarray.Length; i++, j += 2)
+            {
+                resarray[j] = intarray[i];
+                if (intarray[i] % 2 == 0)
+                {
+                    resarray[j + 1] = 0;
+                }
+                else
+                {
+                    j--;
+                }
+            }
+        }
+         static void PrintArray(int[] resarray)
+        {
+            for (int i = 0; i < resarray.Length; i++)
+            {
+                Console.Write(resarray[i] + " ");
+            }
+        }
+         static void PrintJaggedArray(int[][] jaggedArray)
+        {
+            for (int i = 0; i < jaggedArray.Length; i++)
+            {
+                for (int j = 0; j < jaggedArray[i].Length; j++)
+                {
+                    Console.Write(jaggedArray[i][j] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+          static int[][] JaggedArrayFilling()
+
+        {
+            Console.WriteLine("Enter count of rows in jagged array: ");
+            int n = int.Parse(Console.ReadLine());
+
+            int[][] jaggedArray = new int[n][];
+            Console.WriteLine("Enter a jagged array: ");
+
+            for (int i = 0; i < n; i++)
+            {
+                int[] row = Array1dFilling();
+                jaggedArray[i] = new int[row.Length];
+
+                for (int j = 0; j < row.Length; j++)
+                {
+                    jaggedArray[i][j] = row[j];
+                }
+            }
+            return jaggedArray;
+        }
+        static int FindMinElRow(int[][] jaggedArray)
+        {
+            int min = jaggedArray[0][0]; // пошук мінімального елемента
+            int minRowIndex = 0;
+            for (int i = 0; i < jaggedArray.Length; i++)
+            {
+                for (int j = 0; j < jaggedArray[i].Length; j++)
+                {
+                    if (jaggedArray[i][j] < min)
+                    {
+                        min = jaggedArray[i][j];
+                        minRowIndex = i;
+                    }
+                }
+            }
+            return minRowIndex;
+        }
+         static int[][] JaggedArrayRowAdder(int[][] jaggedArray)
+        {
+            int minRowIndex = FindMinElRow(jaggedArray);
+            int[] newRow = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            Array.Resize(ref jaggedArray, jaggedArray.Length + 1);
+            for (int i = jaggedArray.Length - 1; i > minRowIndex; i--)
+            {
+                jaggedArray[i] = jaggedArray[i - 1];
+            }
+            jaggedArray[minRowIndex] = newRow;
+            return jaggedArray;
+        }
+      static int[,] Array2dFilling()
+        {
+            Console.WriteLine("Enter size of matrix: ");
+            string[] size = Console.ReadLine().Trim().Split();
+            int n = int.Parse(size[0]);
+            int m = int.Parse(size[1]);
+            int[,] array2d = new int[n, m];
+            Console.WriteLine("Enter the matrix: ");
+            for (int y = 0; y < n; y++)
+            {
+                size = Console.ReadLine().Trim().Split();
+                for (int x = 0; x < m; x++)
+                {
+                    array2d[y, x] = int.Parse(size[x]);
+                }
+            }
+            return array2d;
+        }
+         static int[,] SumOfMatrices(int[,] s1matrix, int[][] s2matrix)
+        {
+            int rows = Math.Max(s1matrix.GetLength(0), s2matrix.Length);
+            int cols = Math.Max(s1matrix.GetLength(1), getMaxRowLength(s2matrix));
+
+
+            int[,] sum = new int[rows, cols];
+
+ 
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    if (i < s1matrix.GetLength(0) && j < s1matrix.GetLength(1))
+                    {
+                        sum[i, j] += s1matrix[i, j];
+                    }
+                    if (i < s2matrix.Length && j < s2matrix[i].Length)
+                    {
+                        sum[i, j] += s2matrix[i][j];
+                    }
+                }
+            }
+            return sum;
+        }
+        static int getMaxRowLength(int[][] s2matrix)
+        {
+            int maxLength = 0;
+            foreach (int[] row in s2matrix)
+            {
+                if (row.Length > maxLength)
+                {
+                    maxLength = row.Length;
+                }
+            }
+            return maxLength;
+        }
+        static int[,] InvertMatrix(int[,]sum)
+        {
+            for (int y = 0; y < sum.GetLength(0); y++)
+            {
+                for (int x = 0; x < sum.GetLength(1) / 2; x++)
+                {
+                    int temp = sum[y, x];
+                    sum[y, x] = sum[y, sum.GetLength(1) - x - 1];
+                    sum[y, sum.GetLength(1) - x - 1] = temp;
+                }
+            }
+            return sum;
+        }
+        static void PrintArray2d(int[,]array2d)
+        {
+            for (int y = 0; y < array2d.GetLength(0); y++)
+            {
+                for (int x = 0; x < array2d.GetLength(1); x++)
+                {
+                    Console.Write(array2d[y,x] + " ");
+                }
+                Console.WriteLine();
+            }
         }
     }
 }
