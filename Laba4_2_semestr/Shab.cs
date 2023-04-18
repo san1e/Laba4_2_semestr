@@ -104,6 +104,7 @@ namespace Laba4_2_semestr
             {
                 Console.Write(resarray[i] + " ");
             }
+            Console.WriteLine();
         }
          static void PrintJaggedArray(int[][] jaggedArray)
         {
@@ -115,6 +116,7 @@ namespace Laba4_2_semestr
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine();
         }
           static int[][] JaggedArrayFilling()
 
@@ -244,6 +246,7 @@ namespace Laba4_2_semestr
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine();
         }
     }
 }
