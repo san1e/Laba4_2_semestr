@@ -10,8 +10,19 @@ namespace Laba4_2_semestr
     {
         static void Task1()
         {
-            Console.WriteLine("Enter the array: ");
-            int[] intarray = Array1dFilling();
+            Console.WriteLine("Enter number of array filling type: \n1 - with console in 1 row\n2 - randomly");
+            int num = int.Parse(Console.ReadLine());
+            int[] intarray = new int[100];
+            switch (num)
+            {
+                case 1:
+                     intarray = Array1dFilling();
+                    break;
+                case 2:
+                    intarray = RandomArray1dFilling();
+                    break;
+            }
+
             int[] resarray = new int[intarray.Length + TwinCount(intarray)];
             ResarrayFilling(intarray, resarray);
             Console.WriteLine("Result array: ");
@@ -19,7 +30,20 @@ namespace Laba4_2_semestr
         }
         static void Task2()
         {
-            int[][] jaggedArray = JaggedArrayFilling();
+           
+            Console.WriteLine("Enter number of jagged array filling type: \n1 - with console\n2 - randomly");
+            int num = int.Parse(Console.ReadLine());
+            int[][] jaggedArray = new int[100][];
+            switch (num)
+            {
+                case 1:
+                    jaggedArray = JaggedArrayFilling();
+                    break;
+                case 2:
+                    jaggedArray = JaggedArrayRandomFilling();
+                    break;
+            }
+            
             Console.WriteLine("Jagged array: ");
             PrintJaggedArray(jaggedArray);
 
@@ -28,9 +52,38 @@ namespace Laba4_2_semestr
         }
         static void Task3()
         {
-            int[,] array2d = Array2dFilling();
-            int[][] jaggedArray = JaggedArrayFilling();
-
+            int[,] array2d = new int[100,100];
+            int[][] jaggedArray = new int[100][];
+            Console.WriteLine("Enter number of matrix filling type: \n1 - with console\n2 - randomly");
+            int num = int.Parse(Console.ReadLine());
+            switch (num)
+            {
+                case 1:
+                    array2d = Array2dFilling();
+                    Console.WriteLine("Matrix: ");
+                    PrintArray2d(array2d);
+                    break;
+                case 2:
+                    array2d = Array2dRandomFilling();
+                    Console.WriteLine("Matrix: ");
+                    PrintArray2d(array2d);
+                    break;
+            }
+            Console.WriteLine("Enter number of jagged array filling type: \n1 - with console\n2 - randomly");
+            int num1 = int.Parse(Console.ReadLine());
+            switch (num1)
+            {
+                case 1:
+                    jaggedArray = JaggedArrayFilling();
+                    Console.WriteLine("Jagged array: ");
+                    PrintJaggedArray(jaggedArray);
+                    break;
+                case 2:
+                    jaggedArray = JaggedArrayRandomFilling();
+                    Console.WriteLine("Jagged array: ");
+                    PrintJaggedArray(jaggedArray);
+                    break;
+            }
             int[,] sum = SumOfMatrices(array2d, jaggedArray);
             Console.WriteLine("Sum matrix: ");
             PrintArray2d(sum);
@@ -60,6 +113,22 @@ namespace Laba4_2_semestr
                         break;
                 }
             } while (choice != 0);
+        }
+         static int[] RandomArray1dFilling()
+        {
+            Console.WriteLine("Enter count of elements: ");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter bounds of elements size: ");
+            string[] bounds = Console.ReadLine().Trim().Split();
+            int a = int.Parse(bounds[0]);
+            int b = int.Parse(bounds[1]);
+            int[] intarray = new int[n];
+            Random rand = new Random();
+            for (int i = 0; i < intarray.Length; i++)
+            {
+                intarray[i] = rand.Next(a,b);
+            }
+            return intarray;
         }
         static int[] Array1dFilling()
         {
@@ -167,6 +236,47 @@ namespace Laba4_2_semestr
             }
             jaggedArray[minRowIndex] = newRow;
             return jaggedArray;
+        }
+         static int[][] JaggedArrayRandomFilling()
+        {
+            Console.WriteLine("Enter count of rows in jagged array: ");
+            int n = int.Parse(Console.ReadLine());
+
+            int[][] jaggedArray = new int[n][];
+            Console.WriteLine("Enter a jagged array: ");
+
+            for (int i = 0; i < n; i++)
+            {
+                int[] row = RandomArray1dFilling();
+                jaggedArray[i] = new int[row.Length];
+
+                for (int j = 0; j < row.Length; j++)
+                {
+                    jaggedArray[i][j] = row[j];
+                }
+            }
+            return jaggedArray;
+        }
+         static int[,] Array2dRandomFilling()
+        {
+            Console.WriteLine("Enter size of matrix: ");
+            string[] size = Console.ReadLine().Trim().Split();
+            int n = int.Parse(size[0]);
+            int m = int.Parse(size[1]);
+            Console.WriteLine("Enter bounds of elements size: ");
+            string[] bounds = Console.ReadLine().Trim().Split();
+            int a = int.Parse(bounds[0]);
+            int b = int.Parse(bounds[1]);
+            int[,] array2d = new int[n, m];
+            Random rand = new Random();
+            for (int y = 0; y < n; y++)
+            {
+                for (int x = 0; x < m; x++)
+                {
+                    array2d[y, x] = rand.Next(a,b);
+                }
+            }
+            return array2d;
         }
       static int[,] Array2dFilling()
         {
