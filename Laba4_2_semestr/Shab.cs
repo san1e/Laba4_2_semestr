@@ -141,7 +141,7 @@ namespace Laba4_2_semestr
         }
         static int FindMinElRow(int[][] jaggedArray)
         {
-            int min = jaggedArray[0][0]; // пошук мінімального елемента
+            int min = jaggedArray[0][0]; // пошук мiнiмального елемента
             int minRowIndex = 0;
             for (int i = 0; i < jaggedArray.Length; i++)
             {

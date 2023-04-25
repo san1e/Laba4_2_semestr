@@ -25,8 +25,14 @@ namespace Laba4_2_semestr
             arr = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
             return arr;
         }
-        static int[][] Rand(int[][]arr)
+        static int[][] Rand(int[][]arr,int n)
         {
+            for (int i = 0; i < n; i++)
+            {
+                global::System.Console.Write("Введiть довжину :");
+                int k = int.Parse(Console.ReadLine());
+                arr[i] = new int[k];
+            }
             Random rnd= new Random();
             for (int i = 0; i < arr.Length; i++)
             {
@@ -38,16 +44,13 @@ namespace Laba4_2_semestr
             return arr;
         }
 
-        static int[][] KeyBoard(int[][]arr)
+        static int[][] KeyBoard(int[][]arr,int n)
         {
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < n; i++)
             {
-                string[] line = Console.ReadLine().Split();
-                for (int j = 0; j < arr[i].Length; j++)
-                {
-                    arr[i][j] = int.Parse(line[j]);
-                }
+                arr[i] = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
             }
+            Console.Clear();
             return arr;
         }
 
@@ -80,7 +83,7 @@ namespace Laba4_2_semestr
                 Console.WriteLine();
             }
         }
-        static void Zapov(int[][] arr)
+        static void Zapov(int[][] arr,int n)
         {
             int choice;
             do
@@ -92,13 +95,13 @@ namespace Laba4_2_semestr
                 switch (choice)
                 {
                     case 1:
-                        Rand(arr);
+                        Rand(arr,n);
                         CW(arr);
                         Console.WriteLine();
                         return;
                         break;
                     case 2:
-                        KeyBoard(arr);
+                        KeyBoard(arr,n);
                         CW(arr);
                         Console.WriteLine();
                         return;
@@ -135,11 +138,11 @@ namespace Laba4_2_semestr
         }
         static void Task1()
         {
-            int[][] arr = new int[3][];
-            arr[0] = new int[3];
-            arr[1] = new int[4];
-            arr[2] = new int[5];
-            Zapov(arr);
+
+            Console.Write("Введiть кiлькiсть рядкiв в зубчастому масивi :");
+            int n = int.Parse(Console.ReadLine());
+            int[][] arr = new int[n][];
+            Zapov(arr,n);
             for (int i = 0; i < arr.Length; i++)
             {
                 int[] innerArray = arr[i];
@@ -160,11 +163,11 @@ namespace Laba4_2_semestr
         }
         static void Task2()
         {
-            int[][] arr = new int[3][];
-            arr[0] = new int[3];
-            arr[1] = new int[4];
-            arr[2] = new int[5];
-            Zapov(arr);
+            Console.Write("Введiть кiлькiсть рядкiв в зубчастому масивi :");
+            int n = int.Parse(Console.ReadLine());
+            int[][] arr = new int[n][];
+           
+            Zapov(arr,n);
             
             int newLength = 0;
             foreach (int[] row in arr)
@@ -192,14 +195,10 @@ namespace Laba4_2_semestr
         }
         static void Task3()
         {
-            int[] R = { 3, 1, 2, 3, 2, 1, 4, 1, 5 };
-
-
-            int numRows = 3;
+            int[] R = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+            int numRows = R.Length / 3; 
             int numCols = R.Max();
-
             int[,] H = new int[numRows, numCols];
-
             int index = 0;
             for (int row = 0; row < numRows; row++)
             {
@@ -209,7 +208,6 @@ namespace Laba4_2_semestr
                     H[row, col] = R[index++];
                 }
             }
-
             for (int row = 0; row < numRows; row++)
             {
                 for (int col = 0; col < numCols; col++)
@@ -218,18 +216,12 @@ namespace Laba4_2_semestr
                 }
                 Console.WriteLine();
             }
-
             Console.WriteLine();
-
             Array.Sort(R);
             Array.Reverse(R);
-
             Console.WriteLine(string.Join(" ", R));
         }
 
-
-
-        
         public void Main()
         {
             int choice;
