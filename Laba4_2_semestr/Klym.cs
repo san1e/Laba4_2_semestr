@@ -233,7 +233,7 @@ namespace Laba4_2_semestr
                 choice = int.Parse(Console.ReadLine());
                 Console.Clear();
                 switch (choice)
-                {
+                { 
                     case 1:
                         Task1();
                         break;
