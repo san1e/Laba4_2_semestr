@@ -15,16 +15,12 @@ namespace Laba4_2_semestr
             Random rnd = new Random();
             for (int i = 0; i < arr.Length; i++)
             {
-                arr[i] = rnd.Next(0, 7);
+                arr[i] = rnd.Next(0, 10);
             }
             return arr;
         }
 
-        static int[] KeyBoard1(int[]arr)
-        {
-            arr = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-            return arr;
-        }
+      
         static int[][] Rand(int[][]arr,int n)
         {
             for (int i = 0; i < n; i++)
@@ -110,32 +106,7 @@ namespace Laba4_2_semestr
             } while (choice!=0);
         }
 
-        static void Zapov1(int[] arr)
-        {
-            int choice;
-            do
-            {
-                Console.WriteLine("Рандомне заповнення     - 1");
-                Console.WriteLine("Заповнення з клавiатури - 2");
-                choice = int.Parse(Console.ReadLine());
-                Console.Clear();
-                switch (choice)
-                {
-                    case 1:
-                        Rand1(arr);
-                        CW1(arr);
-                        Console.WriteLine();
-                        return;
-                        break;
-                    case 2:
-                        KeyBoard1(arr);
-                        CW1(arr);
-                        Console.WriteLine();
-                        return;
-                        break;
-                }
-            } while (choice != 0);
-        }
+       
         static void Task1()
         {
 
@@ -195,11 +166,22 @@ namespace Laba4_2_semestr
         }
         static void Task3()
         {
+            Console.Write("Введіть значення масиву: ");
             int[] R = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-            int numRows = R.Length / 3; 
+            int numRows =0;
+            if (R.Length % 2 == 0)
+            {
+                numRows= R.Length / 2;
+            }
+            else
+            {
+                numRows = R.Length / 3;
+            }
+           
             int numCols = R.Max();
             int[,] H = new int[numRows, numCols];
             int index = 0;
+
             for (int row = 0; row < numRows; row++)
             {
                 int rowLength = R[index++];
@@ -217,11 +199,11 @@ namespace Laba4_2_semestr
                 Console.WriteLine();
             }
             Console.WriteLine();
-            Array.Sort(R);
-            Array.Reverse(R);
-            Console.WriteLine(string.Join(" ", R));
+                Array.Sort(R);
+                Array.Reverse(R);
+                Console.WriteLine(string.Join(" ", R));
+            
         }
-
         public void Main()
         {
             int choice;
