@@ -161,8 +161,7 @@ namespace Laba4_2_semestr
                 }
             }
 
-            int[][] finalMatrix = newMatrix;
-            CW(finalMatrix);
+            CW(newMatrix);
         }
         static void Task3()
         {
